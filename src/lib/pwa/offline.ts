@@ -1,0 +1,5 @@
+const DB_NAME="assistant-pedagogique";
+const STORE="drafts";
+function openDb(){ return new Promise((resolve,reject)=>{ const r=indexedDB.open(DB_NAME,1); r.onupgradeneeded=()=>{ const db=r.result; if(!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE,{keyPath:"id"}); }; r.onsuccess=()=>resolve(r.result); r.onerror=()=>reject(r.error); }); }
+export async function saveDraftOffline(id,content){ const db=await openDb(); return new Promise((resolve,reject)=>{ const tx=db.transaction(STORE,"readwrite"); tx.objectStore(STORE).put({id,content,updatedAt:Date.now(),synced:false}); tx.oncomplete=()=>resolve(); tx.onerror=()=>reject(tx.error); }); }
+export async function markDraftSynced(id){ const db=await openDb(); return new Promise((resolve,reject)=>{ const tx=db.transaction(STORE,"readwrite"); const s=tx.objectStore(STORE); const r=s.get(id); r.onsuccess=()=>{ const d=r.result; if(d){ d.synced=true; s.put(d); } }; tx.oncomplete=()=>resolve(); tx.onerror=()=>reject(tx.error); }); }

@@ -1,0 +1,4 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentProfile } from "@/lib/auth";
+import { redirect } from "next/navigation";
+export default async function Referentiels(){ const profile=await getCurrentProfile(); if(profile?.role!=="super_admin") redirect("/tableau-de-bord"); const supabase=createSupabaseServerClient(); const {data}=await supabase.from("curriculum_sources").select("id,title,authority,version,status,published_at").order("created_at",{ascending:false}); return <div className="card"><h1 className="text-xl font-bold">Référentiels CEB</h1><ul className="mt-4 divide-y divide-slate-100">{(data??[]).map(s=><li key={s.id} className="py-3 text-sm">{s.title} · {s.authority} · v{s.version} · {s.status}</li>)}</ul></div>; }

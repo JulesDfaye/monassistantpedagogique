@@ -1,0 +1,4 @@
+create table public.classes (id uuid primary key default gen_random_uuid(), organization_id uuid not null references public.organizations(id) on delete cascade, teacher_id uuid not null references public.profiles(id) on delete cascade, name text not null, levels public.school_level[] not null default '{}', languages text[] not null default '{fr}', class_size integer not null default 30 check (class_size > 0), is_multigrade boolean not null default false, created_at timestamptz not null default now(), updated_at timestamptz not null default now());
+create table public.disciplines (id uuid primary key default gen_random_uuid(), name text not null unique, created_at timestamptz not null default now());
+create table public.school_years (id uuid primary key default gen_random_uuid(), label text not null unique, start_date date not null, end_date date not null);
+create index classes_organization_idx on public.classes(organization_id);

@@ -1,0 +1,3 @@
+import { getCurrentProfile } from "@/lib/auth";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+export default async function Profil(){ const profile=await getCurrentProfile(); const supabase=createSupabaseServerClient(); const {data:organization}=profile?.organization_id?await supabase.from("organizations").select("id,name,type,region").eq("id",profile.organization_id).single():{data:null}; return (<div className="card"><h1 className="text-xl font-bold">Mon profil</h1><p className="mt-2 text-sm text-slate-600">{profile?.full_name??"Enseignant"} · {profile?.email}</p><p className="mt-1 text-sm text-slate-600">Rôle : {profile?.role}</p>{organization && <p className="mt-1 text-sm text-slate-600">Établissement : {organization.name}</p>}</div>); }

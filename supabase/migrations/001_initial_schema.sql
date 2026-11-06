@@ -1,0 +1,16 @@
+create extension if not exists "pgcrypto";
+create extension if not exists "uuid-ossp";
+create type public.organization_type as enum ('individual','school','district','ministry');
+create type public.user_role as enum ('teacher','director','validator','referential_admin','super_admin');
+create type public.membership_role as enum ('teacher','director','validator','observer');
+create type public.school_level as enum ('CI','CP','CE1','CE2','CM1','CM2');
+create type public.ceg_step as enum ('CI_CP','CE1_CE2','CM1_CM2');
+create type public.document_type as enum ('lesson_plan','progression','exercise','assessment','answer_key','student_sheet');
+create type public.document_status as enum ('draft','source_linked','validated');
+create type public.source_status as enum ('imported','under_review','published','archived','withdrawn');
+create type public.confidence_level as enum ('low','medium','high');
+create type public.job_status as enum ('queued','running','succeeded','failed','cancelled');
+create type public.assessment_type as enum ('diagnostic','formative','summative');
+create type public.exercise_difficulty as enum ('simple','intermediate','advanced','consolidation','remediation');
+create type public.student_sheet_type as enum ('reading','dictation','problem','calculation','questionnaire','activity');
+create table public.organizations (id uuid primary key default gen_random_uuid(), name text not null, type public.organization_type not null default 'school', region text, inspection_academie text, inspection_education text, created_at timestamptz not null default now(), updated_at timestamptz not null default now());

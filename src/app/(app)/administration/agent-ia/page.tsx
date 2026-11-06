@@ -1,0 +1,3 @@
+import { getCurrentProfile } from "@/lib/auth";
+import { redirect } from "next/navigation";
+export default async function GestionAgentIA(){ const profile=await getCurrentProfile(); if(profile?.role!=="super_admin") redirect("/tableau-de-bord"); return <div className="card"><h1 className="text-xl font-bold">Gestion de l’agent IA</h1><p className="mt-3 text-sm text-slate-600">Modèle, prompt versionné, quotas et journalisation.</p></div>; }

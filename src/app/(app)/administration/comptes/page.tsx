@@ -1,0 +1,4 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentProfile } from "@/lib/auth";
+import { redirect } from "next/navigation";
+export default async function GestionComptes(){ const profile=await getCurrentProfile(); if(profile?.role!=="super_admin") redirect("/tableau-de-bord"); const supabase=createSupabaseServerClient(); const {data}=await supabase.from("profiles").select("id,email,role,organization_id").order("created_at",{ascending:false}); return <div className="card"><h1 className="text-xl font-bold">Gestion des comptes</h1><ul className="mt-4 divide-y divide-slate-100">{(data??[]).map(u=><li key={u.id} className="py-3 text-sm">{u.email} · {u.role}</li>)}</ul></div>; }

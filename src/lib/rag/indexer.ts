@@ -1,0 +1,3 @@
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+export type ChunkInput={ sourceId:string; curriculumItemId?:string; content:string; pageReference?:string; metadata?:Record<string,unknown> };
+export async function indexDocument(sourceId:string,chunks:ChunkInput[]){ const supabase=createSupabaseAdminClient(); const rows=chunks.map((chunk,index)=>({source_id:chunk.sourceId,curriculum_item_id:chunk.curriculumItemId??null,chunk_index:index,content:chunk.content,page_reference:chunk.pageReference??null,embedding:new Array(1536).fill(0),metadata:chunk.metadata??{}})); const {error}=await supabase.from("document_chunks").insert(rows); if(error) throw new Error(error.message); return { indexed:rows.length }; }

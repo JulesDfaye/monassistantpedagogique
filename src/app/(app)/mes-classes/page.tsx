@@ -1,0 +1,3 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentProfile } from "@/lib/auth";
+export default async function MesClasses(){ const profile=await getCurrentProfile(); const supabase=createSupabaseServerClient(); const {data}=await supabase.from("classes").select("id,name,levels,languages,class_size,is_multigrade").eq("teacher_id",profile?.id??""); return (<div className="card"><h1 className="text-xl font-bold">Mes classes</h1><ul className="mt-4 divide-y divide-slate-100">{(data??[]).map(c=><li key={c.id} className="py-3 text-sm">{c.name} · {c.levels.join(", ")} · {c.class_size} élèves · {c.is_multigrade?"multigrade":"simple"}</li>)}{!data?.length && <li className="py-3 text-sm text-slate-500">Aucune classe.</li>}</ul></div>); }

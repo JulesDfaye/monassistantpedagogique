@@ -1,0 +1,4 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentProfile } from "@/lib/auth";
+import { redirect } from "next/navigation";
+export default async function DocumentsPedagogiques(){ const profile=await getCurrentProfile(); if(profile?.role!=="super_admin") redirect("/tableau-de-bord"); const supabase=createSupabaseServerClient(); const {data}=await supabase.from("documents").select("id,title,type,status,created_at").order("created_at",{ascending:false}).limit(50); return <div className="card"><h1 className="text-xl font-bold">Documents pédagogiques</h1><ul className="mt-4 divide-y divide-slate-100">{(data??[]).map(d=><li key={d.id} className="py-3 text-sm">{d.title} · {d.type} · {d.status}</li>)}</ul></div>; }

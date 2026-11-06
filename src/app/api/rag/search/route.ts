@@ -1,0 +1,4 @@
+import { NextResponse } from "next/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { searchCurriculum } from "@/lib/rag/search";
+export async function POST(request:Request){ const supabase=createSupabaseServerClient(); const {data:{user}}=await supabase.auth.getUser(); if(!user) return NextResponse.json({error:"Authentification requise."},{status:401}); const body=await request.json(); const {embedding,level,discipline,limit}=body; if(!embedding||!level||!discipline) return NextResponse.json({error:"embedding, level et discipline obligatoires."},{status:400}); try{ const results=await searchCurriculum(embedding,level,discipline,limit??5); return NextResponse.json({results}); }catch(error:any){ return NextResponse.json({error:error.message},{status:400}); } }

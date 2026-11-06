@@ -1,0 +1,4 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notFound } from "next/navigation";
+import EditeurFiche from "./editeur";
+export default async function FichePage({params}:{params:{id:string}}){ const supabase=createSupabaseServerClient(); const {data:document}=await supabase.from("documents").select("id,title,content,status,created_at").eq("id",params.id).single(); if(!document) notFound(); return (<div className="space-y-4"><div className="card"><h1 className="text-xl font-bold">{document.title}</h1><p className="mt-1 text-sm text-slate-500">État : {document.status}</p><div className="mt-3 flex gap-3"><a className="btn" href={`/api/export/${document.id}?format=pdf`}>Imprimer / PDF</a><a className="btn" href={`/api/export/${document.id}?format=doc`}>Exporter Word</a></div></div><EditeurFiche documentId={document.id} initialContent={document.content}/></div>); }

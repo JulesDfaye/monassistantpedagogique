@@ -1,0 +1,3 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import Link from "next/link";
+export default async function MesPreparations(){ const supabase=createSupabaseServerClient(); const {data}=await supabase.from("documents").select("id,title,type,status,created_at").order("created_at",{ascending:false}); return (<div className="card"><div className="flex items-center justify-between"><h1 className="text-xl font-bold">Mes préparations</h1><Link className="btn" href="/generation-rapide">Nouvelle fiche</Link></div><ul className="mt-4 divide-y divide-slate-100">{(data??[]).map(f=><li key={f.id} className="py-3 text-sm">{f.title} · {f.type} · {f.status}</li>)}{!data?.length && <li className="py-3 text-sm text-slate-500">Aucune préparation.</li>}</ul></div>); }

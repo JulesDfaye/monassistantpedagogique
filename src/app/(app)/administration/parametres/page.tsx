@@ -1,0 +1,3 @@
+import { getCurrentProfile } from "@/lib/auth";
+import { redirect } from "next/navigation";
+export default async function Parametres(){ const profile=await getCurrentProfile(); if(profile?.role!=="super_admin") redirect("/tableau-de-bord"); return <div className="card"><h1 className="text-xl font-bold">Paramètres généraux</h1><p className="mt-3 text-sm text-slate-600">Langues, quotas, modèles IA et intégrations.</p></div>; }

@@ -1,0 +1,2 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+export default async function MesFiches(){ const supabase=createSupabaseServerClient(); const {data}=await supabase.from("documents").select("id,title,type,status,created_at").order("created_at",{ascending:false}); return <div className="card"><h1 className="text-xl font-bold">Mes fiches</h1><ul className="mt-4 divide-y divide-slate-100">{(data??[]).map(f=><li key={f.id} className="py-3 text-sm">{f.title} · {f.status}</li>)}</ul></div>; }

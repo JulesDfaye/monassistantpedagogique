@@ -1,0 +1,4 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentProfile } from "@/lib/auth";
+import { redirect } from "next/navigation";
+export default async function Journaux(){ const profile=await getCurrentProfile(); if(profile?.role!=="super_admin") redirect("/tableau-de-bord"); const supabase=createSupabaseServerClient(); const {data}=await supabase.from("audit_events").select("id,action,target_type,created_at").order("created_at",{ascending:false}).limit(50); return <div className="card"><h1 className="text-xl font-bold">Journaux d’activité</h1><ul className="mt-4 divide-y divide-slate-100">{(data??[]).map(e=><li key={e.id} className="py-3 text-sm">{e.action} · {e.target_type} · {new Date(e.created_at).toLocaleString("fr-FR")}</li>)}</ul></div>; }

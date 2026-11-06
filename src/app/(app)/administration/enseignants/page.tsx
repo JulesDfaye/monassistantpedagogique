@@ -1,0 +1,4 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getCurrentProfile } from "@/lib/auth";
+import { redirect } from "next/navigation";
+export default async function GestionEnseignants(){ const profile=await getCurrentProfile(); if(profile?.role!=="super_admin") redirect("/tableau-de-bord"); const supabase=createSupabaseServerClient(); const {data}=await supabase.from("profiles").select("id,email,full_name,role,organization_id").order("created_at",{ascending:false}); return <div className="card"><h1 className="text-xl font-bold">Gestion des enseignants</h1><ul className="mt-4 divide-y divide-slate-100">{(data??[]).map(u=><li key={u.id} className="py-3 text-sm">{u.full_name??u.email} · {u.role}</li>)}</ul></div>; }
