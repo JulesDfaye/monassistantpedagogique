@@ -4,4 +4,4 @@ Les sources officielles sont importées, vérifiées, versionnées puis publiée
 
 ## MOHEBS
 
-Les ressources MOHEBS sont rattachées à une langue nationale, un niveau et une étape de transfert (émergence L1, transition L1→L2, consolidation bilingue).
+Les ressources MOHEBS sont rattachées à une langue nationale, un niveau, une étape de transfert et un type : fiche de préparation ou guide/référentiel. Les guides officiels (méthodologie du maître, progressions phonologiques et graphémiques, protocole de transfert L1→L2) sont indexés pour permettre au générateur de citer les directives officielles du MEN.

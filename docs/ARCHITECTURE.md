@@ -7,4 +7,4 @@
 - RAG + embeddings
 - Cloudflare
 - PWA
-- MOHEBS bilingue L1/L2
+- MOHEBS bilingue L1/L2 (fiches de préparation + guides & référentiels)

@@ -17,4 +17,4 @@
 
 ## MOHEBS
 
-Le dossier MOHEBS est accessible dans la bibliothèque enseignant avec filtre par langue nationale et étape de transfert. Les administrateurs téléversent les ressources via Bibliothèque MEN > Dossier MOHEBS.
+Le dossier MOHEBS est organisé en deux sous-vues : « Fiches de préparation » (outils quotidiens classés par niveau et langue) et « Guides & Référentiels » (guides du maître, manuels de lecture initiale et documents cadres du MEN/RELIT). Les administrateurs téléversent les ressources via Bibliothèque MEN > Dossier MOHEBS.
