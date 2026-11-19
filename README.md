@@ -6,12 +6,12 @@ Application web responsive pour préparer, enseigner, évaluer et accompagner le
 
 - Connexion sécurisée avec Supabase Auth.
 - Inscription enseignant et mot de passe oublié.
-- Espace enseignant : tableau de bord, classes, préparations, générateur IA, assistant, bibliothèque.
-- Espace administrateur : écoles, enseignants, comptes, rôles, référentiels, documents, agent IA, statistiques, journaux, paramètres.
+- Espace enseignant : tableau de bord, classes, préparations, générateur IA, assistant, bibliothèque, dossier MOHEBS.
+- Espace administrateur : écoles, enseignants, comptes, rôles, référentiels, documents, agent IA, statistiques, journaux, paramètres, bibliothèque MEN.
 - Architecture multi-écoles évolutive.
 - Migrations PostgreSQL et politiques RLS.
 - Tests de sécurité et documentation d’installation.
-- Référentiel CEB versionné et générateur IA de fiches pédagogiques.
+- Référentiel CEB versionné, générateur IA de fiches pédagogiques et intégration MOHEBS bilingue L1/L2.
 
 ## Démarrage
 
@@ -23,7 +23,7 @@ npm run dev
 
 ## Migrations
 
-Exécuter dans l’ordre : `supabase/migrations/001` à `011`, puis `supabase/seed.sql`.
+Exécuter dans l’ordre : `supabase/migrations/001` à `012`, puis `supabase/seed.sql`.
 
 ## Déploiement GitHub + Vercel
 

@@ -7,3 +7,4 @@
 - RAG + embeddings
 - Cloudflare
 - PWA
+- MOHEBS bilingue L1/L2

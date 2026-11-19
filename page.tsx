@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function Accueil(){ return (<main className="mx-auto flex min-h-screen max-w-5xl items-center px-6"><div className="card w-full"><h1 className="text-3xl font-bold text-brand-700">MON ASSISTANT PÉDAGOGIQUE IA – SÉNÉGAL</h1><p className="mt-3 text-slate-600">Préparez, enseignez, évaluez et accompagnez les apprentissages.</p><div className="mt-6 flex gap-3"><Link className="btn" href="/login">Se connecter</Link><Link className="btn" href="/inscription">Créer un compte</Link></div></div></main>); }

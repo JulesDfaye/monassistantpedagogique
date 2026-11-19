@@ -1,0 +1,3 @@
+import { NextResponse } from "next/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+export async function GET(request:Request,{params}:{params:{id:string}}){ const supabase=createSupabaseServerClient(); const {data:resource}=await supabase.from("mohebs_resources").select("file_path,title,file_type").eq("id",params.id).eq("status","published").single(); if(!resource) return NextResponse.json({error:"Ressource introuvable."},{status:404}); const {data}=await supabase.storage.from("mohebs-official").createSignedUrl(resource.file_path,3600); if(!data) return NextResponse.json({error:"Fichier indisponible."},{status:404}); return NextResponse.redirect(data.signedUrl); }

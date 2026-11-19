@@ -1,0 +1,3 @@
+import { createSupabaseServerClient } from "@/lib/supabase/server";
+export type SearchResult={ chunkId:string; sourceId:string; content:string; pageReference:string|null; similarity:number };
+export async function searchCurriculum(embedding:number[],level:string,discipline:string,limit=5):Promise<SearchResult[]>{ const supabase=createSupabaseServerClient(); const {data,error}=await supabase.rpc("search_curriculum_chunks",{query_embedding:embedding,target_level:level,target_discipline:discipline,match_count:limit}); if(error) throw new Error(error.message); return (data??[]).map((row:any)=>({chunkId:row.chunk_id,sourceId:row.source_id,content:row.content,pageReference:row.page_reference,similarity:row.similarity})); }

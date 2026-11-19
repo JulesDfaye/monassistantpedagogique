@@ -9,3 +9,4 @@
 | Gérer toutes les écoles | Non | Non | Oui |
 | Actualiser les référentiels | Non | Non | Oui |
 | Consulter les statistiques globales | Non | Non | Oui |
+| Téléverser MOHEBS | Non | Non | Oui |

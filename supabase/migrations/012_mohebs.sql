@@ -1,0 +1,12 @@
+create type public.mohebs_language as enum ('wolof','pulaar','seereer','joola','mandinka','sooninke');
+create type public.mohebs_stage as enum ('emergence_l1','transition_l1_l2','consolidation_bilingue');
+create table public.mohebs_resources (id uuid primary key default gen_random_uuid(), title text not null, description text, language public.mohebs_language not null, level public.school_level not null, stage public.mohebs_stage not null, file_path text not null, file_type text not null check (file_type in ('pdf','docx')), file_size integer, uploaded_by uuid references public.profiles(id) on delete set null, organization_id uuid references public.organizations(id) on delete set null, status text not null default 'published' check (status in ('draft','published','archived')), created_at timestamptz not null default now());
+create index mohebs_resources_language_idx on public.mohebs_resources(language);
+create index mohebs_resources_level_idx on public.mohebs_resources(level);
+create index mohebs_resources_stage_idx on public.mohebs_resources(stage);
+alter table public.mohebs_resources enable row level security;
+create policy "mohebs_read_published" on public.mohebs_resources for select using (status='published' or public.is_super_admin() or public.is_referential_admin());
+create policy "mohebs_manage" on public.mohebs_resources for all using (public.is_super_admin() or public.is_referential_admin()) with check (public.is_super_admin() or public.is_referential_admin());
+insert into storage.buckets (id,name,public) values ('mohebs-official','mohebs-official',false) on conflict (id) do nothing;
+create policy "mohebs_read_published_files" on storage.objects for select using (bucket_id='mohebs-official' and exists (select 1 from public.mohebs_resources r where r.file_path = name and r.status='published'));
+create policy "mohebs_manage_files" on storage.objects for all using (bucket_id='mohebs-official' and (public.is_super_admin() or public.is_referential_admin())) with check (bucket_id='mohebs-official' and (public.is_super_admin() or public.is_referential_admin()));
