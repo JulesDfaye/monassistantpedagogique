@@ -4,5 +4,5 @@ select id,name,type from public.organizations where id <> '00000000-0000-0000-00
 select id,title,user_id from public.conversations where user_id <> auth.uid();
 select id,document_id,format from public.exports where organization_id <> '00000000-0000-0000-0000-000000000000';
 select id,title,status from public.curriculum_sources where status <> 'published';
-select id,title,language,level,stage,resource_type from public.mohebs_resources where status <> 'published';
+select id,title,language,level,stage from public.mohebs_resources where status <> 'published';
 select trigger_name,event_object_table from information_schema.triggers where trigger_schema='public' and trigger_name in ('audit_documents','audit_curriculum_sources');
